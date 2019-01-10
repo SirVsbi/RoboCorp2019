@@ -1,14 +1,9 @@
 package org.firstinspires.ftc.teamcode.libs;
 
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 
 
 public class RobotInit{
@@ -17,8 +12,12 @@ public class RobotInit{
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
 
+
+
     private boolean _isAuto = false;
 
+
+    public Gyroscope gyroscope = null;
 
     HardwareMap _hwMap = null;
 
@@ -40,6 +39,7 @@ public class RobotInit{
         if(isAuto){
             _isAuto = true;
             initAuto();
+            gyroscope.init(_hwMap);
         }
     }
 
