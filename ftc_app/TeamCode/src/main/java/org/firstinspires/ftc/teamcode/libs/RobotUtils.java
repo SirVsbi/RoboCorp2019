@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import static java.lang.Math.abs;
 
 
+
 public class RobotUtils extends RobotInit{
 
 
@@ -25,36 +26,51 @@ public class RobotUtils extends RobotInit{
         int numBlocksTetrix = Math.round(tetrix * dis);
         int numBlocksNewrest = Math.round(newrest * dis);
 
-        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //TODO check motors(newrest or tetrix)
 
         if(direction == "back"){
-            leftDrive.setTargetPosition(-numBlocksNewrest);
-            rightDrive.setTargetPosition(-numBlocksNewrest);
+            leftBackDrive.setTargetPosition(-numBlocksTetrix);
+            leftFrontDrive.setTargetPosition(-numBlocksTetrix);
+            rightBackDrive.setTargetPosition(-numBlocksTetrix);
+            rightFrontDrive.setTargetPosition(-numBlocksTetrix);
             this.SetMotorPower(0.3, "back");
 
             //TODO fix while issue: add check if the robot is still allowed to move
-            while(leftDrive.getCurrentPosition() > numBlocksNewrest){
+            while(leftFrontDrive.getCurrentPosition() > numBlocksTetrix){
             }
-            leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         }
         else{
-            leftDrive.setTargetPosition(numBlocksNewrest);
-            rightDrive.setTargetPosition(numBlocksNewrest);
+            leftBackDrive.setTargetPosition(numBlocksTetrix);
+            leftFrontDrive.setTargetPosition(numBlocksTetrix);
+            rightBackDrive.setTargetPosition(numBlocksTetrix);
+            rightFrontDrive.setTargetPosition(numBlocksTetrix);
             this.SetMotorPower(0.3);
 
             //TODO fix while issue: add check if the robot is still allowed to move
-            while(leftDrive.getCurrentPosition() < numBlocksNewrest){
+            while(leftFrontDrive.getCurrentPosition() < numBlocksTetrix){
             }
-            leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         }
 
 
@@ -78,8 +94,10 @@ public class RobotUtils extends RobotInit{
         if(power < -1.0){
             power = -1.0;
         }
-        leftDrive.setPower(power);
-        rightDrive.setPower(power);
+        leftBackDrive.setPower(power);
+        leftFrontDrive.setPower(power);
+        rightBackDrive.setPower(power);
+        rightFrontDrive.setPower(power);
     }
 
 
@@ -93,22 +111,28 @@ public class RobotUtils extends RobotInit{
 
 
     public void SetMotorPowerRotation(double power){
-        leftDrive.setPower(power);
-        rightDrive.setPower(-power);
+        leftBackDrive.setPower(power);
+        leftFrontDrive.setPower(power);
+        rightBackDrive.setPower(-power);
+        rightFrontDrive.setPower(-power);
 
     }
 
     public void SetMotorPowerRotationCclw(double power){
-        leftDrive.setPower(-power);
-        rightDrive.setPower(power);
+        leftBackDrive.setPower(-power);
+        leftFrontDrive.setPower(-power);
+        rightBackDrive.setPower(power);
+        rightFrontDrive.setPower(power);
     }
 
 
 
     //when time runs out during an OpMode motors are stopped to avoid penalty
     public void stopMotors(){
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+        leftBackDrive.setPower(0);
+        leftFrontDrive.setPower(0);
+        rightBackDrive.setPower(0);
+        rightFrontDrive.setPower(0);
     }
 
 
@@ -158,3 +182,7 @@ public class RobotUtils extends RobotInit{
 
 
 }
+
+
+
+

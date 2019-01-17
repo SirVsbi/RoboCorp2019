@@ -2,16 +2,25 @@ package org.firstinspires.ftc.teamcode.libs;
 
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.hardware.bosch.BNO055IMU;
-
+import org.firstinspires.ftc.teamcode.libs.Telemetry_RoboCorp;
+import  com.qualcomm.robotcore.util.ElapsedTime;
 
 public class RobotInit{
 
 
-    public DcMotor leftDrive = null;
-    public DcMotor rightDrive = null;
+    public DcMotor leftBackDrive = null;
+    public DcMotor leftFrontDrive = null;
 
+
+    public DcMotor rightBackDrive = null;
+    public DcMotor rightFrontDrive = null;
+
+    public Telemetry_RoboCorp telemetry = null;
+
+    public ElapsedTime time = null;
 
 
     private boolean _isAuto = false;
@@ -26,14 +35,24 @@ public class RobotInit{
     //maps the motors and the sensors from the hardwaremap
     public void init(HardwareMap hwMap, boolean isAuto) {
         _hwMap = hwMap;
-        leftDrive = _hwMap.dcMotor.get("left_drive");
-        rightDrive = _hwMap.dcMotor.get("right_drive");
+        leftBackDrive = _hwMap.dcMotor.get("leftBack_drive");
+        leftFrontDrive =_hwMap.dcMotor.get("leftFront_drive");
+        rightBackDrive = _hwMap.dcMotor.get("rightBack_drive");
+        rightFrontDrive = _hwMap.dcMotor.get("rightFront_drive");
+        telemetry = new Telemetry_RoboCorp();
+        time = new ElapsedTime();
 
+        //TODO: check motor rotations
+
+        //TODO: add arm motors
 
         //setting drive direction, so motors rotate "as expected"
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
 
+
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
         //sets whether robot is in autonomous mode or controlled mode
         if(isAuto){
@@ -44,9 +63,13 @@ public class RobotInit{
     }
 
     public void initAuto(){
-        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 
 }
+
+
