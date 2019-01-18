@@ -16,52 +16,66 @@ public  class Controller extends LinearOpMode{
     private RobotInit robot = null;
     AndroidTextToSpeech TTS = new AndroidTextToSpeech();
 
+    private final double smallPower = 0.2;
+    private final double bigPower = 0.65;
+    private final double powerLimit = 0.8;
+    private final double limitMoveTurnStop = 0.51;
+
+
 
     @Override
     public void runOpMode(){
         TTS.initialize();
         robot = new RobotInit();
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, false);
         waitForStart();
         while(opModeIsActive()){
-            if (gamepad1.left_stick_y >= 0.51 || gamepad1.left_stick_y <= -0.51) {
 
-                if (gamepad1.left_stick_y <= 0.8 && gamepad1.left_stick_y>= -0.8){
-                    robot.leftDrive.setPower(-0.2 * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
-                    robot.rightDrive.setPower(-0.2 * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+
+            if (gamepad1.left_stick_y >= limitMoveTurnStop || gamepad1.left_stick_y <= -limitMoveTurnStop) {
+
+                if (gamepad1.left_stick_y <= powerLimit && gamepad1.left_stick_y>= -powerLimit){
+                    robot.leftBackDrive.setPower(-smallPower * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.leftFrontDrive.setPower(-smallPower * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.rightBackDrive.setPower(-smallPower * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.rightFrontDrive.setPower(-smallPower * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
                 }
 
-                if(gamepad1.left_stick_y > 0.8 || gamepad1.left_stick_y < -0.8){
+                if(gamepad1.left_stick_y > powerLimit || gamepad1.left_stick_y < -powerLimit){
 
-                    robot.leftDrive.setPower(-0.65 * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
-                    robot.rightDrive.setPower(-0.65 * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.leftBackDrive.setPower(-bigPower * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.leftFrontDrive.setPower(-bigPower * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.rightBackDrive.setPower(-bigPower * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
+                    robot.rightFrontDrive.setPower(-bigPower * (gamepad1.left_stick_y / abs(gamepad1.left_stick_y)));
                 }
             }
 
             else {
-               // TTS.speak("");
-                if (gamepad1.left_stick_x >= 0.52 || gamepad1.left_stick_x <= -0.52) {
+                // TODO: Remove the next line for the competition
+                TTS.speak("Hey hey Monica, hey padi Monica!");
+                if (gamepad1.left_stick_x > limitMoveTurnStop || gamepad1.left_stick_x < -limitMoveTurnStop) {
 
-                    /*/robot.backLeftDrive.setPower(gamepad1.left_stick_x/2);
-                    robot.backRightDrive.setPower(-gamepad1.left_stick_x/2);
-                    robot.leftDrive.setPower(gamepad1.left_stick_x/2);
-                    robot.rightDrive.setPower(-gamepad1.left_stick_x/2);/*/
+                    if (gamepad1.left_stick_x <= powerLimit && gamepad1.left_stick_x >= -powerLimit){
 
-                    if (gamepad1.left_stick_x <= 0.8 && gamepad1.left_stick_x >= -0.8){
-
-                        robot.leftDrive.setPower(0.2 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
-                        robot.rightDrive.setPower(-0.2 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.leftBackDrive.setPower(smallPower * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.leftFrontDrive.setPower(smallPower * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.rightBackDrive.setPower(-smallPower * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.rightFrontDrive.setPower(-smallPower * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
                     }
-                    if (gamepad1.left_stick_x > 0.8 || gamepad1.left_stick_x < -0.8){
+                    if (gamepad1.left_stick_x > powerLimit || gamepad1.left_stick_x < -powerLimit){
 
-                        robot.leftDrive.setPower(0.65 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
-                        robot.rightDrive.setPower(-0.65 * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.leftBackDrive.setPower(bigPower * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.leftFrontDrive.setPower(bigPower * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.rightBackDrive.setPower(-bigPower * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
+                        robot.rightFrontDrive.setPower(-bigPower * (gamepad1.left_stick_x / abs(gamepad1.left_stick_x)));
                     }
                 }
                 else{
 
-                    robot.leftDrive.setPower(0);
-                    robot.rightDrive.setPower(0);
+                    robot.leftBackDrive.setPower(0);
+                    robot.leftFrontDrive.setPower(0);
+                    robot.rightBackDrive.setPower(0);
+                    robot.rightFrontDrive.setPower(0);
                 }
             }
 
@@ -72,8 +86,8 @@ public  class Controller extends LinearOpMode{
 
             telemetry.addLine()
                     .addData("Status: ", "Running")
-                    .addData("Left drive power: ", robot.leftDrive.getPower())
-                    .addData("Right drive power:", robot.rightDrive.getPower());
+                    .addData("Left drive power: ", robot.leftBackDrive.getPower())
+                    .addData("Right drive power:", robot.rightBackDrive.getPower());
             telemetry.update();
 
         }
