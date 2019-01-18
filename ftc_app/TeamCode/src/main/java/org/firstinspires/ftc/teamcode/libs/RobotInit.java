@@ -13,10 +13,11 @@ public class RobotInit{
 
     public DcMotor leftBackDrive = null;
     public DcMotor leftFrontDrive = null;
-
-
     public DcMotor rightBackDrive = null;
     public DcMotor rightFrontDrive = null;
+
+    public DcMotor leftLiftMotor = null;
+    public DcMotor rightLiftMotor = null;
 
     public Telemetry_RoboCorp telemetry = null;
 
@@ -39,6 +40,8 @@ public class RobotInit{
         leftFrontDrive =_hwMap.dcMotor.get("leftFront_drive");
         rightBackDrive = _hwMap.dcMotor.get("rightBack_drive");
         rightFrontDrive = _hwMap.dcMotor.get("rightFront_drive");
+        leftLiftMotor = _hwMap.dcMotor.get("leftLift_motor");
+        rightLiftMotor = _hwMap.dcMotor.get("rightLift_motor");
         telemetry = new Telemetry_RoboCorp();
         time = new ElapsedTime();
 

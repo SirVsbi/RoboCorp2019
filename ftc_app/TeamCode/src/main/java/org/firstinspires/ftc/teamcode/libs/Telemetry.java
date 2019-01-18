@@ -14,7 +14,7 @@ class Telemetry_RoboCorp extends RobotInit {
 
     }
 
-    void printMotors(){
+    public void printMotors(){
         generalPrint();
         telemetry.addLine()
                 .addData("Left Back Drive power: ", leftBackDrive.getPower())
@@ -25,7 +25,7 @@ class Telemetry_RoboCorp extends RobotInit {
     }
 
 
-    void printRotation(){
+    public void printRotation(){
         generalPrint();
         printMotors();
         telemetry.addLine()
