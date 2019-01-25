@@ -36,28 +36,26 @@ public class RobotInit{
     //maps the motors and the sensors from the hardwaremap
     public void init(HardwareMap hwMap, boolean isAuto) {
         _hwMap = hwMap;
-        leftBackDrive = _hwMap.dcMotor.get("leftBack_drive");
-        leftFrontDrive =_hwMap.dcMotor.get("leftFront_drive");
-        rightBackDrive = _hwMap.dcMotor.get("rightBack_drive");
-        rightFrontDrive = _hwMap.dcMotor.get("rightFront_drive");
-        leftLiftMotor = _hwMap.dcMotor.get("leftLift_motor");
-        rightLiftMotor = _hwMap.dcMotor.get("rightLift_motor");
+        leftBackDrive = _hwMap.dcMotor.get("backleft_drive");
+        leftFrontDrive =_hwMap.dcMotor.get("frontleft_drive");
+        rightBackDrive = _hwMap.dcMotor.get("backright_drive");
+        rightFrontDrive = _hwMap.dcMotor.get("frontright_drive");
+        leftLiftMotor = _hwMap.dcMotor.get("left_lift");
+        rightLiftMotor = _hwMap.dcMotor.get("right_lift");
         telemetry = new Telemetry_RoboCorp();
         time = new ElapsedTime();
 
         //TODO: check motor rotations
-
-        //TODO: add arm motors
 
         //setting drive direction, so motors rotate "as expected"
         leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
 
 
-        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
-        //sets whether robot is in autonomous mode or controlled mode
+       //sets whether robot is in autonomous mode or controlled mode
         if(isAuto){
             _isAuto = true;
             initAuto();

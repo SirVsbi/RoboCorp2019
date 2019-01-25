@@ -31,7 +31,6 @@ class Telemetry_RoboCorp extends RobotInit {
         telemetry.addLine()
                 .addData("Current angle", gyroscope.getAngle());
         telemetry.update();
-
     }
 
 }
