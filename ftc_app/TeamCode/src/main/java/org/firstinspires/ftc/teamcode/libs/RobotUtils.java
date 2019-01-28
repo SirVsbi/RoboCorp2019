@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import static java.lang.Math.abs;
 
 
-
-public class RobotUtils extends RobotInit{
+/*
+public abstract class RobotUtils extends RobotInit{
 
 
 
@@ -17,12 +17,12 @@ public class RobotUtils extends RobotInit{
      *      "back" - the robot moves backwards
      *      anything else - the robot moves forwards
      */
-
+/*
     public void setEncoderBlocks(float dis, String direction){
 
         //constants, the number of rotations for an encoder to travel a "field length" (23.5 inch)
         final int tetrix = 2750;
-        final int newrest = 2136;
+         final int newrest = 2136;
         int numBlocksTetrix = Math.round(tetrix * dis);
         int numBlocksNewrest = Math.round(newrest * dis);
 
@@ -49,6 +49,12 @@ public class RobotUtils extends RobotInit{
 
             //TODO fix while issue: add check if the robot is still allowed to move
             while(leftFrontDrive.getCurrentPosition() > numBlocksTetrix){
+                telemetry.addLine()
+                        .addData("left back position : ", leftBackDrive.getCurrentPosition())
+                        .addData("right back position: ", rightBackDrive.getCurrentPosition())
+                        .addData("left front position: ", leftFrontDrive.getCurrentPosition())
+                        .addData("right front position: ", rightFrontDrive.getCurrentPosition());
+                telemetry.update();
             }
             leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -65,6 +71,12 @@ public class RobotUtils extends RobotInit{
 
             //TODO fix while issue: add check if the robot is still allowed to move
             while(leftFrontDrive.getCurrentPosition() < numBlocksTetrix){
+                telemetry.addLine()
+                        .addData("left back position : ", leftBackDrive.getCurrentPosition())
+                        .addData("right back position: ", rightBackDrive.getCurrentPosition())
+                        .addData("left front position: ", leftFrontDrive.getCurrentPosition())
+                        .addData("right front position: ", rightFrontDrive.getCurrentPosition());
+                telemetry.update();
             }
             leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -86,7 +98,7 @@ public class RobotUtils extends RobotInit{
     *[-1, 1] interval
     */
 
-
+/*
     public void SetMotorPower(double power){
         if(power > 1.0){
             power = 1.0;
@@ -142,6 +154,8 @@ public class RobotUtils extends RobotInit{
     //
     // @param int millisec the time to sleep in milliseconds
     public void sleep(int millisec){
+        telemetry.addData("Sleeping for ", millisec);
+        telemetry.update();
         try{
             Thread.sleep(millisec);
         }catch (InterruptedException ex){
@@ -158,9 +172,14 @@ public class RobotUtils extends RobotInit{
         boolean Cclw = (target > 180 || target < 0);
             int current = gyroscope.getAngle();
             while(!isok(current, target, range)){
+
                 current = gyroscope.getAngle();
                 int mod = target - current;
                 mod /= 30;
+                telemetry.addLine()
+                        .addData("current angle: ", current )
+                        .addData("speed: ", minSpeed + addSpeed * Math.abs(mod));
+                telemetry.update();
                 if(Cclw)
                     this.SetMotorPowerRotationCclw(minSpeed + addSpeed * Math.abs(mod));
                 else
@@ -186,3 +205,4 @@ public class RobotUtils extends RobotInit{
 
 
 
+*/

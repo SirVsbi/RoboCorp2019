@@ -39,15 +39,19 @@ public class Controller extends LinearOpMode{
         waitForStart();
         while(opModeIsActive()){
             movTurn(gamepad1.left_stick_x, gamepad1.left_stick_y);
-            lift(gamepad1.a, gamepad1.b, gamepad1.x, gamepad1.y);
+            lift(gamepad2.a, gamepad2.b, gamepad2.x, gamepad2.y);
             telemetry.addLine()
                     .addData("Drive bigPower", getBigPower())
                     .addData("Lift power: ", getLiftPower())
                     .addData("Left Back Drive power: ", robot.leftBackDrive.getPower())
                     .addData("Left Front Drive power:", robot.leftFrontDrive.getPower())
                     .addData("Right Back Drive power: ", robot.rightBackDrive.getPower())
-                    .addData("Right Front Drive power: ", robot.rightFrontDrive.getPower());
-
+                    .addData("Right Front Drive power: ", robot.rightFrontDrive.getPower())
+                    .addData("Left Back position:",robot.leftBackDrive.getCurrentPosition())
+                    .addData("Left Front position:", robot.leftFrontDrive.getCurrentPosition())
+                    .addData("Right back position: ", robot.rightBackDrive.getCurrentPosition())
+                    .addData("Right front position", robot.rightFrontDrive.getCurrentPosition());
+            telemetry.update();
 
             // TODO: Fix next line
             //robot.telemetry.printMotors();
